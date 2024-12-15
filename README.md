@@ -7,7 +7,7 @@ This is a simple Django REST framework project with user authentication, event c
 ## Features
 
 - **User registration** and JWT-based authentication.
-- **Post management** with the ability to create, update, delete posts.
+- **Event management** with the ability to create, update, delete events.
 
 ## Requirements
 
@@ -15,7 +15,7 @@ This is a simple Django REST framework project with user authentication, event c
 - Django 5.1.4
 - Django REST Framework
 - Simple JWT
-- SQLite (default database)
+- PostgreSQL
 
 ## Installation
 
