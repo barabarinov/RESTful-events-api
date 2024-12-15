@@ -10,6 +10,9 @@ class Event(models.Model):
     organizer = models.ForeignKey(
         settings.AUTH_USER_MODEL, on_delete=models.CASCADE, related_name="events"
     )
- 
+    guests = models.ManyToManyField(
+        settings.AUTH_USER_MODEL, related_name="guest_events", blank=True
+    )
+
     def __str__(self):
         return self.title
