@@ -1,5 +1,5 @@
-from drf_yasg.utils import swagger_auto_schema
 from drf_yasg import openapi
+from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status, viewsets
 from rest_framework.decorators import action
 from rest_framework.permissions import IsAuthenticated, IsAuthenticatedOrReadOnly
@@ -25,7 +25,6 @@ class EventViewSet(viewsets.ModelViewSet):
             400: openapi.Response("You are already registered for this event."),
         },
     )
-
     @action(detail=True, methods=["post"], permission_classes=[IsAuthenticated])
     def register(self, request, pk=None):
         event = self.get_object()
