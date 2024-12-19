@@ -1,5 +1,3 @@
-from datetime import datetime
-
 from django_filters.rest_framework import DjangoFilterBackend, FilterSet, DateTimeFilter
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
