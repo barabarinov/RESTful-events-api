@@ -8,6 +8,7 @@ This is a simple Django REST framework project with user authentication, event c
 
 - **User registration** and JWT-based authentication.
 - **Event management** with the ability to create, update, delete events.
+- **Event management** with the ability to filtering and search events.
 
 ## Requirements
 
@@ -100,8 +101,18 @@ docker-compose exec web python manage.py createsuperuser
 
 - `GET /api/events/`: List all events.
 - `POST /api/events/`: Create a new event (requires authentication).
-- `POST /api/events/<event_id>/register/`: Register a user for a specific event (requires authentication).
-- `GET /api/events/<event_id>/`: Retrieve a single event.
-- `PUT /api/events/<event_id>/`: Update a event's content (requires authentication).
-- `PATCH /api/events/<event_id>/`: Partially update a event's content (requires authentication).
-- `DELETE /api/events/<event_id>/`: Delete a event (requires authentication).
+- `POST /api/events/<event_id>/register/`: Register an user for a specific event (requires authentication).
+- `GET /api/events/<event_id>/`: Retrieve an single event.
+- `PUT /api/events/<event_id>/`: Update an event's content (requires authentication).
+- `PATCH /api/events/<event_id>/`: Partially update an event's content (requires authentication).
+- `DELETE /api/events/<event_id>/`: Delete an event (requires authentication).
+
+### Search and Filtering
+
+- `GET /api/events/?search=concert`: Search events by title or description.
+- `GET /api/events/?location=Kyiv`: Filter events by location.
+- `GET /api/events/?datetime=2024-12-16T07:17:51Z`: Filter events by datetime.
+- `GET /api/events/?datetime_after=2024-12-16T00:00:00Z&datetime_before=2024-12-31T23:59:59Z`: Filter events by a datetime range.
+- `GET /api/events/?organizer=1`: Filter events by organizer (using user ID).
+- `GET /api/events/?ordering=datetime`: Order events by datetime in ascending order.
+- `GET /api/events/?ordering=-title`: Order events by title in descending order.
