@@ -1,4 +1,4 @@
-from django_filters.rest_framework import DjangoFilterBackend
+from django_filters.rest_framework import DjangoFilterBackend, FilterSet, DateTimeFilter
 from drf_yasg import openapi
 from drf_yasg.utils import swagger_auto_schema
 from rest_framework import status, viewsets, filters
@@ -11,6 +11,15 @@ from .permissions import IsEventOrganizerOrReadOnly
 from .serializers import EventSerializer
 
 
+class EventFilter(FilterSet):
+    datetime_after = DateTimeFilter(field_name="datetime", lookup_expr="gte")
+    datetime_before = DateTimeFilter(field_name="datetime", lookup_expr="lte")
+
+    class Meta:
+        model = Event
+        fields = ["location", "organizer"]
+
+
 class EventViewSet(viewsets.ModelViewSet):
     queryset = Event.objects.all().order_by("-datetime")
     serializer_class = EventSerializer
@@ -20,7 +29,7 @@ class EventViewSet(viewsets.ModelViewSet):
         filters.SearchFilter,
         filters.OrderingFilter,
     ]
-    filterset_fields = ["location", "organizer", "datetime"]
+    filterset_class = EventFilter
     search_fields = ["title", "description"]
     ordering_fields = ["datetime", "title"]
     ordering = ["-datetime"]
