@@ -39,16 +39,14 @@ This is a simple Django REST framework project with user authentication, event c
    pip install -r requirements.txt
    ```
    
-4. Set up environment variables:
-
-   Create a `.env` file in the project root and add your values:
+4. Create your local Postgres database. Next, create a user and grant all necessary permissions. Rename the `.env.example` file to `.env` and replace the constant values with your own. Leave DB_HOST=localhost unchanged for local running.
 
    ```bash
    SECRET_KEY=<your-secret-key>
    DB_NAME=<your-db-name>
    DB_USER=<your-db-user>
    DB_PASSWORD=<your-db-password>
-   DB_HOST=<your-db-host>
+   DB_HOST=localhost
    DB_PORT=<your-db-port>
    ```
    
@@ -75,6 +73,14 @@ This is a simple Django REST framework project with user authentication, event c
    ```
 
 ## Using Docker
+Change DB_HOST in `.env` file to following value:
+
+   ```bash
+   ...
+   DB_HOST=db
+   ...
+   ```
+
 Run `docker-compose` command to build and up containers:
 ```shell
 docker-compose up --build
