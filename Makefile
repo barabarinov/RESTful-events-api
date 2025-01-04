@@ -5,7 +5,7 @@ EXAMPLE_ENV_FILE = .env.example
 # Default target
 all: prepare up
 
-# Check if .env exists, otherwise rename .env.example to .env
+# Prepare first-time initialization of the application TODO: Create sh script for this command
 prepare:
 	@if [ ! -f $(ENV_FILE) ]; then \
 		echo "Renaming $(EXAMPLE_ENV_FILE) to $(ENV_FILE)..."; \
