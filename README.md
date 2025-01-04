@@ -12,87 +12,53 @@ This is a simple Django REST framework project with user authentication, event c
 
 ## Requirements
 
-- Python 3.11.0
-- Django 5.1.4
+- Python
+- Django
 - Django REST Framework
 - Simple JWT
 - PostgreSQL
 
-## Installation
 
-1. Clone the repository:
+## Using Docker
 
+Clone the repository:
    ```bash
    git clone https://github.com/barabarinov/RESTful-events-api.git
    ```
 
-2. Create and activate a virtual environment:
-
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows use `venv\Scripts\activate`
-   ```
-   
-3. Install dependencies:
-
-   ```bash
-   pip install -r requirements.txt
-   ```
-   
-4. Create your local Postgres database. Next, create a user and grant all necessary permissions. Rename the `.env.example` file to `.env` and replace the constant values with your own. Leave DB_HOST=localhost unchanged for local running.
-
-   ```bash
-   SECRET_KEY=<your-secret-key>
-   DB_NAME=<your-db-name>
-   DB_USER=<your-db-user>
-   DB_PASSWORD=<your-db-password>
-   DB_HOST=localhost
-   DB_PORT=<your-db-port>
-   ```
-   
-5. Run migrations to set up the database:
-
-   ```bash
-   python manage.py makemigrations
-   ```
-   
-   ```bash
-   python manage.py migrate
-   ```
-
-6. Create a superuser to access the Django admin panel:
-
-   ```bash
-   python manage.py createsuperuser
-   ```
-   
-7. Start the development server:
-
-   ```bash
-   python manage.py runserver
-   ```
-
-## Using Docker
-Change DB_HOST in `.env` file to following value:
-
-   ```bash
-   ...
-   DB_HOST=db
-   ...
-   ```
-
-Run `docker-compose` command to build and up containers:
+Run the following command to rename `.env.example` to `.env`:
 ```shell
-docker-compose up --build
+make prepare
 ```
-Make migrations:
+
+Build and start the application using Docker:
 ```shell
-docker-compose exec web python manage.py migrate
+make up
 ```
-Create superuser:
+
+Open your browser and navigate to http://localhost:8000/:
+
+Use the default credentials to log in:
+- **Username:** admin
+- **Password:** admin
+
+If needed, you can update these credentials in the .env file before starting the containers.
+
+To stop the running containers, use:
 ```shell
-docker-compose exec web python manage.py createsuperuser
+make down
 ```
+
+To remove all containers, images, and volumes, use:
+```shell
+make clean
+```
+
+Additional Notes:
+- Ensure Docker Desktop (or an equivalent Docker environment) is installed and running before executing these steps.
+- During the initial startup, the script automatically creates a superuser if it doesn’t already exist. If a superuser already exists, the script will skip this step with a message.
+- Static files are automatically collected during the Docker build process (python manage.py collectstatic). No additional actions are required.
+
 
 ## API Endpoints
 
@@ -122,3 +88,97 @@ docker-compose exec web python manage.py createsuperuser
 - `GET /api/events/?organizer=1`: Filter events by organizer (using user ID).
 - `GET /api/events/?ordering=datetime`: Order events by datetime in ascending order.
 - `GET /api/events/?ordering=-title`: Order events by title in descending order.
+
+
+### Testing
+
+User Registration:
+```shell
+curl -X POST http://localhost:8000/api/users/register/ \
+-H "Content-Type: application/json" \
+-d '{
+  "username": "testuser",
+  "email": "testuser@example.com",
+  "password": "securepassword123"
+}'
+```
+
+Get JWT Access Token:
+```shell
+curl -X POST http://localhost:8000/api/users/token/ \
+-H "Content-Type: application/json" \
+-d '{
+  "username": "admin",
+  "password": "admin"
+}'
+```
+
+Refresh JWT Token:
+```shell
+curl -X POST http://localhost:8000/api/users/token/refresh/ \
+-H "Content-Type: application/json" \
+-d '{
+  "refresh": "your-refresh-token"
+}'
+```
+
+Verify JWT Token:
+```shell
+curl -X POST http://localhost:8000/api/users/token/verify/ \
+-H "Content-Type: application/json" \
+-d '{
+  "token": "your-access-token"
+}'
+```
+
+List All Events:
+```shell
+curl -X GET http://localhost:8000/api/events/
+```
+
+Create a New Event (requires authentication):
+```shell
+curl -X POST http://localhost:8000/api/events/ \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer your-access-token" \
+-d '{
+  "title": "RY X",
+  "description": "RY X is currently touring across 13 countries and has 24 upcoming concerts.",
+  "location": "Kyiv",
+  "datetime": "2025-01-09T15:00:00Z"
+}'
+```
+
+Retrieve a Specific Event:
+```shell
+curl -X GET http://localhost:8000/api/events/1/
+```
+
+Update an Event (requires authentication):
+```shell
+curl -X PUT http://localhost:8000/api/events/1/ \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer your-access-token" \
+-d '{
+  "title": "Updated Event Title",
+  "description": "Updated description.",
+  "location": "Lviv",
+  "datetime": "2025-01-12T18:00:00Z"
+}'
+```
+
+Partially Update an Event (requires authentication):
+```shell
+curl -X PATCH http://localhost:8000/api/events/1/ \
+-H "Content-Type: application/json" \
+-H "Authorization: Bearer your-access-token" \
+-d '{
+  "title": "Partially Updated Title"
+}'
+```
+
+Delete an Event (requires authentication):
+```shell
+curl -X DELETE http://localhost:8000/api/events/1/ \
+-H "Authorization: Bearer your-access-token"
+```
