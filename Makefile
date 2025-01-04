@@ -5,7 +5,7 @@ EXAMPLE_ENV_FILE = .env.example
 # Default target
 all: prepare up
 
-# Prepare first-time initialization of the application TODO: Create sh script for this command
+# Prepare first-time initialization of the application
 prepare:
 	chmod +x prepare_env.sh
 	./prepare_env.sh
