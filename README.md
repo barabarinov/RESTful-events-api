@@ -26,7 +26,7 @@ Clone the repository:
    git clone https://github.com/barabarinov/RESTful-events-api.git
    ```
 
-Run the following command to rename `.env.example` to `.env`:
+Run the following command to prepare your environment for the first run:
 ```shell
 make prepare
 ```
