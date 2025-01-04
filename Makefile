@@ -7,12 +7,8 @@ all: prepare up
 
 # Prepare first-time initialization of the application TODO: Create sh script for this command
 prepare:
-	@if [ ! -f $(ENV_FILE) ]; then \
-		echo "Renaming $(EXAMPLE_ENV_FILE) to $(ENV_FILE)..."; \
-		mv $(EXAMPLE_ENV_FILE) $(ENV_FILE); \
-	else \
-		echo "$(ENV_FILE) already exists."; \
-	fi
+	chmod +x prepare_env.sh
+	./prepare_env.sh
 
 # Build and start the Docker containers
 up:
