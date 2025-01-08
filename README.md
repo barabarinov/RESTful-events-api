@@ -4,13 +4,13 @@
 
 This is a simple Django REST framework project with user authentication, event creation. It provides a basic CRUD operations.
 
-## Features
+## Features:
 
-- **User registration** and JWT-based authentication.
-- **Event management** with the ability to create, update, delete events.
-- **Event management** with the ability to filtering and search events.
+- User registration and JWT-based authentication.
+- Event management with the ability to create, update, delete events.
+- Filtering and search events.
 
-## Requirements
+## Requirements:
 
 - Python
 - Django
@@ -19,7 +19,7 @@ This is a simple Django REST framework project with user authentication, event c
 - PostgreSQL
 
 
-## Using Docker
+## Using Docker:
 
 Clone the repository:
    ```bash
@@ -54,40 +54,55 @@ To remove all containers, images, and volumes, use:
 make clean
 ```
 
-Additional Notes:
-- Ensure Docker Desktop (or an equivalent Docker environment) is installed and running before executing these steps.
-- During the initial startup, the script automatically creates a superuser if it doesn’t already exist. If a superuser already exists, the script will skip this step with a message.
+### Additional Notes:
+- Make sure you have Docker installed and running before you start.
+- The app will automatically create an admin user the first time you run it. If an admin already exists, it will skip this step and let you know.
 - Static files are automatically collected during the Docker build process (python manage.py collectstatic). No additional actions are required.
 
 
 ## API Endpoints
 
-### User Registration and Authentication
+### User Registration and Authentication:
 
-- `POST /api/users/register/`: Register a new user.
-- `POST /api/users/token/`: Get JWT access token.
-- `POST /api/users/token/refresh/`: Refresh the JWT access token.
-- `POST /api/users/token/verify/`: Verify the validity of a given JWT access token.
+🟢`POST /api/users/register/`: Register a new user.
 
-### Event Endpoints
+🟢`POST /api/users/token/`: Get JWT access token.
 
-- `GET /api/events/`: List all events.
-- `POST /api/events/`: Create a new event (requires authentication).
-- `POST /api/events/<event_id>/register/`: Register an user for a specific event (requires authentication).
-- `GET /api/events/<event_id>/`: Retrieve an single event.
-- `PUT /api/events/<event_id>/`: Update an event's content (requires authentication).
-- `PATCH /api/events/<event_id>/`: Partially update an event's content (requires authentication).
-- `DELETE /api/events/<event_id>/`: Delete an event (requires authentication).
+🟢`POST /api/users/token/refresh/`: Refresh the JWT access token.
 
-### Search and Filtering
+🟢`POST /api/users/token/verify/`: Verify the validity of a given JWT access token.
 
-- `GET /api/events/?search=concert`: Search events by title or description.
-- `GET /api/events/?location=Kyiv`: Filter events by location.
-- `GET /api/events/?datetime=2024-12-16T07:17:51Z`: Filter events by datetime.
-- `GET /api/events/?datetime_after=2024-12-16T00:00:00Z&datetime_before=2024-12-31T23:59:59Z`: Filter events by a datetime range.
-- `GET /api/events/?organizer=1`: Filter events by organizer (using user ID).
-- `GET /api/events/?ordering=datetime`: Order events by datetime in ascending order.
-- `GET /api/events/?ordering=-title`: Order events by title in descending order.
+### Event Endpoints:
+
+🟣`GET /api/events/`: List all events.
+
+🟢`POST /api/events/`: Create a new event (requires authentication).
+
+🟢`POST /api/events/<event_id>/register/`: Register an user for a specific event (requires authentication).
+
+🟣`GET /api/events/<event_id>/`: Retrieve an single event.
+
+🟠`PUT /api/events/<event_id>/`: Update an event's content (requires authentication).
+
+🟡`PATCH /api/events/<event_id>/`: Partially update an event's content (requires authentication).
+
+🔴`DELETE /api/events/<event_id>/`: Delete an event (requires authentication).
+
+### Search and Filtering:
+
+🟣`GET /api/events/?search=concert`: Search events by title or description.
+
+🟣`GET /api/events/?location=Kyiv`: Filter events by location.
+
+🟣`GET /api/events/?datetime=2024-12-16T07:17:51Z`: Filter events by datetime.
+
+🟣`GET /api/events/?datetime_after=2024-12-16T00:00:00Z&datetime_before=2024-12-31T23:59:59Z`: Filter events by a datetime range.
+
+🟣`GET /api/events/?organizer=1`: Filter events by organizer (using user ID).
+
+🟣`GET /api/events/?ordering=datetime`: Order events by datetime in ascending order.
+
+🟣`GET /api/events/?ordering=-title`: Order events by title in descending order.
 
 
 ### Testing
