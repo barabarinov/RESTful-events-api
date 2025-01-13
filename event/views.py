@@ -9,6 +9,7 @@ from rest_framework.response import Response
 from .models import Event
 from .permissions import IsEventOrganizerOrReadOnly
 from .serializers import EventSerializer
+from .utils import send_event_registration_email
 
 
 class EventFilter(FilterSet):
@@ -53,6 +54,7 @@ class EventViewSet(viewsets.ModelViewSet):
                 status=status.HTTP_400_BAD_REQUEST,
             )
         event.guests.add(request.user)
+        send_event_registration_email(request.user, event)
         return Response(
             {"detail": "Successfully registered for the event."},
             status=status.HTTP_200_OK,
