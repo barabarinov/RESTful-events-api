@@ -33,7 +33,6 @@ def send_event_registration_email(user: User, event: Event) -> None:
             ),
             from_email=settings.FROM_EMAIL,
             recipient_list=[user.email],
-            fail_silently=False,
         )
         logger.info(f"🟢 Email sent to user: {user.email}.")
     except Exception as e:
