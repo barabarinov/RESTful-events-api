@@ -62,7 +62,7 @@ make clean
 
 ### Email Notifications:
 
-If you want to check mail notification feature, follow these steps:
+If you want to check email notification feature, follow these steps:
 
 1. Sign up for a free account (or log in if you already have an account) on [SendGrid’s official website](https://sendgrid.com/en-us).
 2. Generate a ***SendGrid API Key*** and paste into the .env file under ***SENDGRID_API_KEY***.
