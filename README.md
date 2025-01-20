@@ -9,6 +9,7 @@ This is a simple Django REST framework project with user authentication, event c
 - User registration and JWT-based authentication.
 - Event management with the ability to create, update, delete events.
 - Filtering and search events.
+- Email notifications for event registration.
 
 ## Requirements:
 
@@ -59,6 +60,13 @@ make clean
 - The app will automatically create an admin user the first time you run it. If an admin already exists, it will skip this step and let you know.
 - Static files are automatically collected during the Docker build process (python manage.py collectstatic). No additional actions are required.
 
+### Email Notifications:
+
+If you want to check mail notification feature, follow these steps:
+
+1. Sign up for a free account (or log in if you already have an account) on [SendGrid’s official website](https://sendgrid.com/en-us).
+2. Generate a ***SendGrid API Key*** and paste into the .env file under ***SENDGRID_API_KEY***.
+3. Configure ***Single Sender Verification*** in your SendGrid account, then paste the verified email into the .env file as ***FROM_EMAIL***.
 
 ## API Endpoints
 
