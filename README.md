@@ -10,6 +10,7 @@ This is a simple Django REST framework project with user authentication, event c
 - Event management with the ability to create, update, delete events.
 - Filtering and search events.
 - Email notifications for event registration.
+- API documentation and testing implemented using Swagger for a clear and interactive interface.
 
 ## Requirements:
 
